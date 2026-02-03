@@ -13,7 +13,7 @@ Viktor Korotkov — https://github.com/stacyshki
 
 Arystan Kamalov — https://github.com/arystan01
 
-Shitao Zhao — ... (TBD)
+Shitao Zhao — https://github.com/SOMEBODYxDDD
 
 ## Resources and languages used
 
@@ -21,7 +21,7 @@ Wikidata endpoint: https://query.wikidata.org
 
 SPARQL (queries)
 
-Python (data analysis and visualization)
+Python (visualization)
 
 ## Outcomes
 
