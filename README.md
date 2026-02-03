@@ -5,15 +5,15 @@ In nowadays' fast-paced world patents are released within tiny timeframes. New t
 Retrieve data about patents in Big Data and AI from resources such as Wikidata, EPO (European Patent Ontology). Create interactrive visualizations using this data. Understand modern trends in AI and Big Data. Learn the leaders in the field. Observe latest scientific problems concerning new technologies and their bottlenecks.
 
 ## Team
-Viktor Korotkov - https://github.com/stacyshki
-Arystan Kamalov - https://github.com/arystan01
-Shitao Zhao     - ... (TBD)
+Viktor Korotkov - https://github.com/stacyshki<br></<br>
+Arystan Kamalov - https://github.com/arystan01<br></<br>
+Shitao Zhao     - ... (TBD)<br></<br>
 
 ## Resources and languages used
-Wikidata endpoint: https://query.wikidata.org/
-SparQL (queries)
-Python (visualization)
+Wikidata endpoint: https://query.wikidata.org/<br></<br>
+SparQL (queries)<br></<br>
+Python (visualization)<br></<br>
 
 ## Outcomes
-Our website: ... (TBD)
-Report: ... (TBD)
+Our website: ... (TBD)<br></<br>
+Report: ... (TBD)<br></<br>
