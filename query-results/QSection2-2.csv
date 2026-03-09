@@ -1,0 +1,65 @@
+year,topic,count
+2010,1. Machine Learning,475
+2010,2. Computer Vision,694
+2010,3. NLP,393
+2010,4. Knowledge Rep,95
+2011,1. Machine Learning,474
+2011,2. Computer Vision,1233
+2011,3. NLP,499
+2011,4. Knowledge Rep,504
+2012,1. Machine Learning,674
+2012,2. Computer Vision,611
+2012,3. NLP,383
+2012,4. Knowledge Rep,77
+2013,1. Machine Learning,645
+2013,2. Computer Vision,1209
+2013,3. NLP,604
+2013,4. Knowledge Rep,497
+2014,1. Machine Learning,723
+2014,2. Computer Vision,668
+2014,3. NLP,1537
+2014,4. Knowledge Rep,93
+2015,1. Machine Learning,675
+2015,2. Computer Vision,1397
+2015,3. NLP,676
+2015,4. Knowledge Rep,650
+2016,1. Machine Learning,893
+2016,2. Computer Vision,838
+2016,3. NLP,647
+2016,4. Knowledge Rep,759
+2017,1. Machine Learning,1115
+2017,2. Computer Vision,2060
+2017,3. NLP,702
+2017,4. Knowledge Rep,782
+2018,1. Machine Learning,1633
+2018,2. Computer Vision,1331
+2018,3. NLP,1030
+2018,4. Knowledge Rep,965
+2019,1. Machine Learning,2227
+2019,2. Computer Vision,3550
+2019,3. NLP,1502
+2019,4. Knowledge Rep,966
+2020,1. Machine Learning,2985
+2020,2. Computer Vision,1990
+2020,3. NLP,2159
+2020,4. Knowledge Rep,887
+2021,1. Machine Learning,3715
+2021,2. Computer Vision,4257
+2021,3. NLP,2537
+2021,4. Knowledge Rep,798
+2022,1. Machine Learning,4158
+2022,2. Computer Vision,2634
+2022,3. NLP,2609
+2022,4. Knowledge Rep,923
+2023,1. Machine Learning,5370
+2023,2. Computer Vision,5712
+2023,3. NLP,4411
+2023,4. Knowledge Rep,928
+2024,1. Machine Learning,7106
+2024,2. Computer Vision,3520
+2024,3. NLP,3494
+2024,4. Knowledge Rep,1141
+2025,1. Machine Learning,3332
+2025,2. Computer Vision,3548
+2025,3. NLP,6866
+2025,4. Knowledge Rep,1375

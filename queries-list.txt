@@ -1,0 +1,332 @@
+Section 1
+Q1:
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+
+SELECT ?year (COUNT(?pub) AS ?count) WHERE {
+  # We filter by the specific "streams" (conference series) that define AI
+  VALUES ?venue {
+    <https://dblp.org/streams/conf/nips>   # NeurIPS (Neural Information Processing Systems)
+    <https://dblp.org/streams/conf/icml>   # ICML (International Conf. on Machine Learning)
+    <https://dblp.org/streams/conf/cvpr>   # CVPR (Computer Vision)
+    <https://dblp.org/streams/conf/icc>    # ICCV (Computer Vision)
+    <https://dblp.org/streams/conf/aaai>   # AAAI (Assoc. for the Advancement of AI)
+    <https://dblp.org/streams/conf/ijcai>  # IJCAI (Intl. Joint Conf. on AI)
+    <https://dblp.org/streams/conf/acl>    # ACL (Computational Linguistics / NLP)
+  }
+
+  ?pub dblp:publishedInStream ?venue .
+  ?pub dblp:yearOfPublication ?year .
+  
+}
+GROUP BY ?year
+ORDER BY ?year
+
+Section 2
+Q1:
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+
+SELECT ?topic (COUNT(?pub) AS ?count) WHERE {
+  VALUES (?venue ?topic) {
+    (<https://dblp.org/streams/conf/nips> "1. Machine Learning (NeurIPS)")
+    (<https://dblp.org/streams/conf/icml> "1. Machine Learning (ICML)")
+    (<https://dblp.org/streams/conf/iclr> "1. Machine Learning (ICLR)")
+
+    (<https://dblp.org/streams/conf/cvpr> "2. Computer Vision (CVPR)")
+    (<https://dblp.org/streams/conf/iccv> "2. Computer Vision (ICCV)")
+    (<https://dblp.org/streams/conf/eccv> "2. Computer Vision (ECCV)")
+
+    (<https://dblp.org/streams/conf/acl>  "3. NLP & GenAI (ACL)")
+    (<https://dblp.org/streams/conf/emnlp> "3. NLP & GenAI (EMNLP)")
+    (<https://dblp.org/streams/conf/naacl> "3. NLP & GenAI (NAACL)")
+
+    (<https://dblp.org/streams/conf/aaai> "4. General AI (AAAI)")
+    (<https://dblp.org/streams/conf/ijcai> "4. General AI (IJCAI)")
+    (<https://dblp.org/streams/conf/kr>    "4. Knowledge Rep (KR)")
+    (<https://dblp.org/streams/conf/iswc>  "4. Semantic Web (ISWC)")
+  }
+
+  ?pub dblp:publishedInStream ?venue .
+  ?pub dblp:yearOfPublication ?year .
+  
+}
+GROUP BY ?topic
+ORDER BY DESC(?count)
+
+Q2:
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+
+SELECT ?year ?topic (COUNT(?pub) AS ?count) WHERE {
+  # Map top conferences to their Field
+  VALUES (?venue ?topic) {
+    # MACHINE LEARNING
+    (<https://dblp.org/streams/conf/nips> "1. Machine Learning")
+    (<https://dblp.org/streams/conf/icml> "1. Machine Learning")
+    
+    # COMPUTER VISION
+    (<https://dblp.org/streams/conf/cvpr> "2. Computer Vision")
+    (<https://dblp.org/streams/conf/iccv> "2. Computer Vision")
+    
+    # NATURAL LANGUAGE PROCESSING
+    (<https://dblp.org/streams/conf/acl>  "3. NLP")
+    (<https://dblp.org/streams/conf/emnlp> "3. NLP")
+    
+    # KNOWLEDGE REPRESENTATION (Symbolic AI)
+    (<https://dblp.org/streams/conf/kr>    "4. Knowledge Rep")
+    (<https://dblp.org/streams/conf/ijcai> "4. Knowledge Rep") 
+  }
+
+  ?pub dblp:publishedInStream ?venue .
+  ?pub dblp:yearOfPublication ?year .
+  
+  # Focus on the transition period (2010 to present)
+  FILTER (?year >= "2010"^^<http://www.w3.org/2001/XMLSchema#gYear>)
+}
+GROUP BY ?year ?topic
+ORDER BY ?year ?topic
+
+Section 3
+Q1:
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+SELECT ?pub ?year ?affiliationName
+WHERE {
+  ?pub a dblp:Inproceedings ;
+       dblp:yearOfPublication ?year ;
+       dblp:authoredBy ?author .
+  FILTER (
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/aaai/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/ijcai/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/nips/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/icml/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/cvpr/")
+  )
+  ?author dblp:primaryAffiliation ?affiliationName .
+}
+
+Section 4
+Q1:
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?pub ?year ?authorName
+WHERE {
+  ?pub a dblp:Inproceedings ;
+       dblp:yearOfPublication ?year ;
+       dblp:authoredBy ?author .
+  FILTER (
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/aaai/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/ijcai/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/nips/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/icml/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/cvpr/")
+  )
+  ?author rdfs:label ?authorName .
+}
+
+Section 5
+Q1:
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+SELECT ?pub ?year ?venue ?affiliationName
+WHERE {
+  ?pub a dblp:Inproceedings ;
+       dblp:yearOfPublication ?year ;
+       dblp:publishedIn ?venue ; 
+       dblp:authoredBy ?author .
+  FILTER (
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/aaai/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/ijcai/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/nips/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/icml/") ||
+    STRSTARTS(STR(?pub), "https://dblp.org/rec/conf/cvpr/")
+  )
+  ?author dblp:primaryAffiliation ?affiliationName .
+
+Section 6
+Q1:
+
+Part 1
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?venue (COUNT(?pub) AS ?papers)
+WHERE {
+  ?pub rdf:type dblp:Article ;
+       dblp:title ?title ;
+       dblp:publishedIn ?venue .
+  FILTER(REGEX(?title,
+    "artificial intelligence|machine learning|deep learning|neural network|big data|data mining",
+    "i"))
+}
+GROUP BY ?venue
+ORDER BY DESC(?papers)
+
+Part 2
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT ?venue (COUNT(?pub) AS ?papers)
+WHERE {
+  ?pub rdf:type dblp:Inproceedings ;
+       dblp:title ?title ;
+       dblp:publishedIn ?venue .
+  FILTER(REGEX(?title,
+    "artificial intelligence|machine learning|deep learning|neural network|big data|data mining",
+    "i"))
+}
+GROUP BY ?venue
+ORDER BY DESC(?papers)
+
+Q2:
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX cito: <http://purl.org/spar/cito/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?subtopic (COUNT(?paper) AS ?paperCount) (SUM(?cites) AS ?totalCitations)
+WHERE {
+  {
+    SELECT ?paper (COUNT(?citation) AS ?cites) WHERE {
+      ?citation cito:hasCitedEntity ?omid .
+      ?paper dblp:omid ?omid .
+    } GROUP BY ?paper
+  }
+  
+  ?paper dblp:title ?title .
+  
+  BIND(
+    IF(REGEX(?title, "Transformer|LLM|Large Language Model|GPT|Attention Mechanism", "i"), "Generative AI & LLMs",
+    IF(REGEX(?title, "Diffusion Model|Stable Diffusion|GAN|Generative Adversarial", "i"), "Image & Media Synthesis",
+    IF(REGEX(?title, "Reinforcement Learning|RLHF|Policy Gradient", "i"), "Reinforcement Learning",
+    IF(REGEX(?title, "Computer Vision|Object Detection|Segmentation|Image Recognition", "i"), "Computer Vision",
+    IF(REGEX(?title, "Natural Language|NLP|Sentiment Analysis|Text Mining", "i"), "Classical NLP",
+    IF(REGEX(?title, "Explainable AI|XAI|Interpretability|Fairness|Ethics|Bias", "i"), "AI Ethics & Interpretability",
+    IF(REGEX(?title, "Federated Learning|Privacy-Preserving|Differential Privacy", "i"), "Privacy & Distributed AI",
+    IF(REGEX(?title, "Graph Neural Network|GNN|Relational Learning", "i"), "Graph Learning",
+    IF(REGEX(?title, "Edge AI|TinyML|Hardware Acceleration|Neuromorphic", "i"), "AI Hardware & Edge",
+    "General AI/Other"))))))))) AS ?subtopic
+  )
+  
+  FILTER(?subtopic != "General AI/Other")
+}
+GROUP BY ?subtopic
+ORDER BY DESC(?totalCitations)
+
+Section 7
+Q1:
+
+Part 1
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?subtopic 
+       (MIN(xsd:integer(STR(?year))) AS ?birthYear) 
+       (AVG(xsd:decimal(STR(?year))) AS ?avgYear)
+       (COUNT(?paper) AS ?totalVolume)
+WHERE {
+  ?paper a dblp:Publication ;
+         dblp:title ?title ;
+         dblp:yearOfPublication ?year .
+  
+  # Optimization: Filter was changed by hand multiple times to get results
+  FILTER(xsd:integer(STR(?year)) > 2010 && xsd:integer(STR(?year)) <= 2020)
+
+  BIND(
+    IF(REGEX(?title, "Transformer|Large Language Model|LLM|GPT-[34]|Attention Mechanism", "i"), "LLMs & Attention",
+    IF(REGEX(?title, "Diffusion Model|Stable Diffusion|DALL-E|Generative Adversarial", "i"), "Generative Media",
+    IF(REGEX(?title, "Graph Neural|GNN|Graph Convolutional", "i"), "Graph Learning",
+    IF(REGEX(?title, "Neural Radiance Field|NeRF|3D Reconstruction", "i"), "Neural Rendering (NeRF)",
+    IF(REGEX(?title, "Reinforcement Learning|Proximal Policy|Deep Q-Network", "i"), "Deep RL",
+    IF(REGEX(?title, "AI for Science|Protein Folding|AlphaFold|Scientific Machine Learning", "i"), "AI for Science",
+    IF(REGEX(?title, "Federated Learning|Differential Privacy|Private ML", "i"), "Privacy-Preserving AI",
+    IF(REGEX(?title, "Explainable AI|XAI|Model Interpretability|Fairness in AI", "i"), "Ethics & Interpretability",
+    "Other")))))))) AS ?subtopic
+  )
+  
+  FILTER(?subtopic != "Other")
+}
+GROUP BY ?subtopic
+ORDER BY ?birthYear
+
+Part 2
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?type (AVG(xsd:decimal(STR(?year))) AS ?avgYear) (COUNT(?paper) AS ?count)
+WHERE {
+  ?paper a dblp:Publication ;
+         dblp:title ?title ;
+         dblp:yearOfPublication ?year .
+  
+  BIND(IF(REGEX(?title, "Theory|Foundations|Fundamental", "i"), "Fundamental",
+       IF(REGEX(?title, "Applications|Applied|Systems|Implementation", "i"), "Applied", "Unknown")) AS ?type)
+       
+  FILTER(?type != "Unknown")
+}
+GROUP BY ?type
+
+Section 8
+Q1:
+
+Part 1 - Affiliation
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?subtopic ?hasAffiliation (COUNT(?paper) AS ?count)
+WHERE {
+  ?paper a dblp:Publication ;
+         dblp:title ?title ;
+         dblp:yearOfPublication ?year .
+
+  BIND(
+    IF(REGEX(?title, "Large Language Model|LLM|Transformer", "i"), "Generative AI",
+    IF(REGEX(?title, "Reinforcement Learning", "i"), "RL",
+    IF(REGEX(?title, "Computer Vision", "i"), "Vision",
+    "Other"))) AS ?subtopic
+  )
+  
+  FILTER(?subtopic != "Other")
+
+  OPTIONAL { 
+    ?paper dblp:author ?author . 
+    ?author dblp:note ?note . 
+    FILTER(CONTAINS(LCASE(STR(?note)), "affiliation")) 
+  }
+  
+  BIND(IF(BOUND(?note), "With Affiliation", "Missing Affiliation") AS ?hasAffiliation)
+}
+GROUP BY ?subtopic ?hasAffiliation
+ORDER BY ?subtopic
+
+Part 2 - Citations
+
+PREFIX dblp: <https://dblp.org/rdf/schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+
+SELECT ?subtopic ?citationStatus (COUNT(?paper) AS ?count)
+WHERE {
+  ?paper a dblp:Publication ;
+         dblp:title ?title ;
+         dblp:yearOfPublication ?year .
+
+  BIND(
+    IF(REGEX(?title, "Large Language Model|LLM|Transformer", "i"), "Generative AI",
+    IF(REGEX(?title, "Reinforcement Learning", "i"), "RL",
+    IF(REGEX(?title, "Computer Vision", "i"), "Vision",
+    "Other"))) AS ?subtopic
+  )
+  FILTER(?subtopic != "Other")
+
+  OPTIONAL { ?paper dblp:omid ?omid . }
+  
+  BIND(IF(BOUND(?omid), "Citations Tracked", "No Citation Data") AS ?citationStatus)
+}
+GROUP BY ?subtopic ?citationStatus
+ORDER BY ?subtopic
