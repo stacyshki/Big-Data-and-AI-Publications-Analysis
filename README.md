@@ -5,19 +5,19 @@ Our team decided to address these questions by building a bridge between enthusi
 
 ## Project goal
 
-Retrieve data about scientific publications in the fields of Big Data and Artificial Intelligence from open resources such as Wikidata and other linked open data (LoD) sources. Create interactive visualizations based on this data to analyze modern trends in AI and Big Data research. Identify key contributors and leading institutions in the field. Observe current scientific challenges, emerging topics, and potential bottlenecks in modern technologies.
+Retrieve data about scientific publications in the fields of Big Data and Artificial Intelligence from open resources such as DBLP and other linked open data (LoD) sources. Create interactive visualizations based on this data to analyze modern trends in AI and Big Data research. Identify key contributors and leading institutions in the field. Observe current scientific challenges, emerging topics, and potential bottlenecks in modern technologies.
 
 ## Team
 
-Viktor Korotkov — https://github.com/stacyshki
+[Viktor Korotkov](https://github.com/stacyshki) — Data Analyst at the project
 
-Arystan Kamalov — https://github.com/arystan01
+[Arystan Kamalov](https://github.com/arystan01) — Data Analyst at the project
 
-Shitao Zhao — https://github.com/SOMEBODYxDDD
+[Shitao Zhao](https://github.com/SOMEBODYxDDD) — Data Analyst at the project
 
 ## Resources and languages used
 
-Wikidata endpoint: https://query.wikidata.org
+[DBLP endpoint](https://sparql.dblp.org/)
 
 SPARQL (queries)
 
@@ -25,6 +25,6 @@ Python (visualization)
 
 ## Outcomes
 
-Our website: ... (TBD)
+[Visualization Jupyter notebook](https://github.com/stacyshki/Big-Data-and-AI-Publications-Analysis/blob/main/analysis.ipynb)
 
-Report: ... (TBD)
+[Report](https://github.com/stacyshki/Big-Data-and-AI-Publications-Analysis/blob/main/report.doc)
