@@ -4,15 +4,14 @@ Q1:
 PREFIX dblp: <https://dblp.org/rdf/schema#>
 
 SELECT ?year (COUNT(?pub) AS ?count) WHERE {
-  # We filter by the specific "streams" (conference series) that define AI
   VALUES ?venue {
-    <https://dblp.org/streams/conf/nips>   # NeurIPS (Neural Information Processing Systems)
-    <https://dblp.org/streams/conf/icml>   # ICML (International Conf. on Machine Learning)
-    <https://dblp.org/streams/conf/cvpr>   # CVPR (Computer Vision)
-    <https://dblp.org/streams/conf/icc>    # ICCV (Computer Vision)
-    <https://dblp.org/streams/conf/aaai>   # AAAI (Assoc. for the Advancement of AI)
-    <https://dblp.org/streams/conf/ijcai>  # IJCAI (Intl. Joint Conf. on AI)
-    <https://dblp.org/streams/conf/acl>    # ACL (Computational Linguistics / NLP)
+    <https://dblp.org/streams/conf/nips>
+    <https://dblp.org/streams/conf/icml>
+    <https://dblp.org/streams/conf/cvpr>
+    <https://dblp.org/streams/conf/icc>
+    <https://dblp.org/streams/conf/aaai>
+    <https://dblp.org/streams/conf/ijcai>
+    <https://dblp.org/streams/conf/acl>
   }
 
   ?pub dblp:publishedInStream ?venue .
@@ -59,21 +58,16 @@ Q2:
 PREFIX dblp: <https://dblp.org/rdf/schema#>
 
 SELECT ?year ?topic (COUNT(?pub) AS ?count) WHERE {
-  # Map top conferences to their Field
   VALUES (?venue ?topic) {
-    # MACHINE LEARNING
     (<https://dblp.org/streams/conf/nips> "1. Machine Learning")
     (<https://dblp.org/streams/conf/icml> "1. Machine Learning")
     
-    # COMPUTER VISION
     (<https://dblp.org/streams/conf/cvpr> "2. Computer Vision")
     (<https://dblp.org/streams/conf/iccv> "2. Computer Vision")
     
-    # NATURAL LANGUAGE PROCESSING
     (<https://dblp.org/streams/conf/acl>  "3. NLP")
     (<https://dblp.org/streams/conf/emnlp> "3. NLP")
     
-    # KNOWLEDGE REPRESENTATION (Symbolic AI)
     (<https://dblp.org/streams/conf/kr>    "4. Knowledge Rep")
     (<https://dblp.org/streams/conf/ijcai> "4. Knowledge Rep") 
   }
@@ -81,7 +75,6 @@ SELECT ?year ?topic (COUNT(?pub) AS ?count) WHERE {
   ?pub dblp:publishedInStream ?venue .
   ?pub dblp:yearOfPublication ?year .
   
-  # Focus on the transition period (2010 to present)
   FILTER (?year >= "2010"^^<http://www.w3.org/2001/XMLSchema#gYear>)
 }
 GROUP BY ?year ?topic
@@ -233,7 +226,7 @@ WHERE {
          dblp:title ?title ;
          dblp:yearOfPublication ?year .
   
-  # Optimization: Filter was changed by hand multiple times to get results
+  # Optimization: I filter was changed by hand multiple times to get results
   FILTER(xsd:integer(STR(?year)) > 2010 && xsd:integer(STR(?year)) <= 2020)
 
   BIND(
