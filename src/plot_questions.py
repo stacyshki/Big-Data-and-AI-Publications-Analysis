@@ -99,8 +99,11 @@ def s4q2(df):
     df = _prep_s4(df)
     prod = df.groupby('authorName')['pub'].nunique().sort_values(ascending=False)
     plt.figure(figsize=(10, 5))
-    sns.histplot(prod, bins=50, log_scale=(False, True), color='purple')
+    sns.histplot(x=prod, bins=50, color='purple', edgecolor='black')
+    plt.yscale('log')
     plt.title("Author Productivity Distribution (Log Scale)")
+    plt.xlabel("Number of Publications") 
+    plt.ylabel("Count")                  
     plt.show()
     print("Top 5 Super-Productive Researchers:\n", prod.head(5))
 
