@@ -2,3 +2,4 @@ __pycache__
 .vscode
 ~$report.doc
 ~$ report.doc
+.DS_Store
